@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
@@ -29,10 +30,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.eoskoreanode.app.Interface.InterfacePermission;
+import com.eoskoreanode.app.Interface.Interface_volley_respose;
 import com.eoskoreanode.app.class_.AutoUpdate;
 import com.eoskoreanode.app.class_.LogUtils;
 import com.eoskoreanode.app.class_.Permissionmanage;
 import com.eoskoreanode.app.class_.ToastUtils;
+import com.eoskoreanode.app.class_.Volley_Utils;
 import com.jaeger.library.StatusBarUtil;
 import com.master.permissionhelper.PermissionHelper;
 import com.yzq.zxinglibrary.android.CaptureActivity;
@@ -48,9 +51,8 @@ public class MainActivity extends Activity {
     AutoUpdate autoUpdate;
 
     //URL
-    String  index="http://www.eoskoreanode.com/t.html";//测试不信任证书 404  500等
-//    String  index="https://eoskoreanode.com/app/";
-    String  erweima ="http://app.ete-coin.com/app/wallet/transfer?address=";//二维码拼接链接
+//    String  index="http://www.eoskoreanode.com/t.html";//测试不信任证书 404  500等
+    String  index="https://eoskoreanode.com/app/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,6 @@ public class MainActivity extends Activity {
         initview();
         initdata();
         initwebview();
-        initlinstenner();
     }
 
     private void initdata() {
@@ -124,14 +125,17 @@ public class MainActivity extends Activity {
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);//错误提示
 
-                LogUtils.LOG("ceshi","dsfa"+error,"网址错误");
-
+                LogUtils.LOG("ceshi","dsfa"+error,"断网");
+                Intent intent=new Intent(MainActivity.this,KongActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
             public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
                 super.onReceivedHttpError(view, request, errorResponse);
                 LogUtils.LOG("ceshi","aaaaaaaaa"+errorResponse,"网址aaaaaa错误");
+
             }
         });
         webView.setWebChromeClient(new WebChromeClient(){
@@ -141,10 +145,9 @@ public class MainActivity extends Activity {
                 if(newProgress==100){
                     mPrigressBer.setVisibility(View.GONE);//加载完网页进度条消失
                     LogUtils.LOG("ceshi",webView.getUrl(),"网..址");
-                    if(webView.getUrl().contains("http://app.ete-coin.com/app/index/index.html")||
-                            webView.getUrl().contains("http://app.ete-coin.com/app/wallet/index.html")||
-                                    webView.getUrl().contains("http://app.ete-coin.com/app/market/index.html")||
-                    webView.getUrl().contains("http://app.ete-coin.com/app/user/index.html")){
+                    if(webView.getUrl().contains("https://eoskoreanode.com/app/index/index.html")||
+                            webView.getUrl().contains("https://eoskoreanode.com/app/asset/index.html")||
+                    webView.getUrl().contains("https://eoskoreanode.com/app/user/index.html")){
                         webView.clearHistory();
                     }
                 }
@@ -155,11 +158,18 @@ public class MainActivity extends Activity {
 
 
             }
-
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
                 LogUtils.LOG("ceshi",title,"网址网址网址");
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    if(title.contains("找不到")){
+                        Intent intent=new Intent(MainActivity.this,KongActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+
             }
 
 
@@ -204,22 +214,6 @@ public class MainActivity extends Activity {
                         cm.setText(uri.getAuthority());
                         ToastUtils.showToast(MainActivity.this,"复制到剪贴板成功");
                     }
-//                    result.confirm("js调用了Android的方法成功啦");
-//                    if (uri.getAuthority().equals("webview")) {
-//                        //
-//                        // 执行JS所需要调用的逻辑
-//                        Log.i("ceshi","js调用了Android的方法"+".....3");
-//                        // 可以在协议上带有参数并传递到Android上
-//                        HashMap<String, String> params = new HashMap<>();
-//                        Set<String> collection = uri.getQueryParameterNames();
-//                        //参数result:代表消息框的返回值(输入值)
-////                        result.confirm("js调用了Android的方法成功啦");
-////                        webView.loadUrl("https://www.baidu.com/");
-//                        Log.i("ceshi",uri.getQueryParameter("arg2")+".....4");
-//                        show();
-////                        Intent intent=new Intent(MainActivity.this,TextActivity.class);
-////                        startActivity(intent);
-//                    }
                     result.cancel();
                     return true;
                 }
@@ -261,20 +255,6 @@ public class MainActivity extends Activity {
         webView=findViewById(R.id.webview);
         mPrigressBer=findViewById(R.id.pb);
 //        mtextview=findViewById(R.id.textview);
-    }
-    public  void show(){
-        webView.loadUrl(erweima);
-//        LogUtils.LOG("ceshi",erweima,"show");
-//        Toast.makeText(MainActivity.this,"调用了安卓", Toast.LENGTH_SHORT).show();
-    }
-    private  void initlinstenner(){
-//        mtextview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                erweima();
-//
-//            }
-//        });
     }
     void erweima(){
         Permissionmanage permissionmanage = new Permissionmanage(permissionHelper, new InterfacePermission() {
@@ -347,11 +327,11 @@ public class MainActivity extends Activity {
         // 扫描二维码/条码回传
         if (requestCode == 111 && resultCode == RESULT_OK) {
             if (data != null) {
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
-                erweima=erweima+content;
-                if(content!=null||!content.equals("")){
-                    show();
-                }
+//                String content = data.getStringExtra(Constant.CODED_CONTENT);
+//                erweima=erweima+content;
+//                if(content!=null||!content.equals("")){
+//                    show();
+//                }
 
             }
         }

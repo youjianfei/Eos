@@ -83,7 +83,7 @@ public class AutoUpdate {
     /**
      * 联网查询版本
      */
-    String newdownurl = "http://app.ete-coin.com/api/index/update";//下载apk网址
+    String newdownurl = "";//下载apk网址
     public  void requestVersionData() {
 
         new Volley_Utils(new Interface_volley_respose() {
@@ -114,9 +114,9 @@ public class AutoUpdate {
 
             @Override
             public void onError(int error) {
-
+                LogUtils.LOG("ceshi","c错误码"+error,"updataapp");
             }
-        }).Http("http://app.ete-coin.com/api/index/update", activity, 0);
+        }).Http("http://eoskoreanode.com/api/index/update", activity, 0);
     }
     /**
      * 得到当前版本号

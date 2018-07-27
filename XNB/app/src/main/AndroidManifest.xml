@@ -31,17 +31,16 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name="com.eoskoreanode.app.MainActivity">
-
-        </activity>
-        <activity android:name="com.eoskoreanode.app.LunchActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".LunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".KongActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>
