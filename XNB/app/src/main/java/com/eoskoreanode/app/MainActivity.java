@@ -19,6 +19,9 @@ import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -45,8 +48,8 @@ public class MainActivity extends Activity {
     AutoUpdate autoUpdate;
 
     //URL
-//    String  index="http://www.eoskoreanode.com/t.html";//测试不信任证书 404  500等
-    String  index="http://app.ete-coin.com/app/index/index.html";
+    String  index="http://www.eoskoreanode.com/t.html";//测试不信任证书 404  500等
+//    String  index="https://eoskoreanode.com/app/";
     String  erweima ="http://app.ete-coin.com/app/wallet/transfer?address=";//二维码拼接链接
 
     @Override
@@ -114,8 +117,21 @@ public class MainActivity extends Activity {
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-//                super.onReceivedSslError(view, handler, error);
                 handler.proceed();
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);//错误提示
+
+                LogUtils.LOG("ceshi","dsfa"+error,"网址错误");
+
+            }
+
+            @Override
+            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                super.onReceivedHttpError(view, request, errorResponse);
+                LogUtils.LOG("ceshi","aaaaaaaaa"+errorResponse,"网址aaaaaa错误");
             }
         });
         webView.setWebChromeClient(new WebChromeClient(){
@@ -124,7 +140,7 @@ public class MainActivity extends Activity {
                 super.onProgressChanged(view, newProgress);
                 if(newProgress==100){
                     mPrigressBer.setVisibility(View.GONE);//加载完网页进度条消失
-                    LogUtils.LOG("ceshi",webView.getUrl(),"网址");
+                    LogUtils.LOG("ceshi",webView.getUrl(),"网..址");
                     if(webView.getUrl().contains("http://app.ete-coin.com/app/index/index.html")||
                             webView.getUrl().contains("http://app.ete-coin.com/app/wallet/index.html")||
                                     webView.getUrl().contains("http://app.ete-coin.com/app/market/index.html")||
@@ -143,8 +159,9 @@ public class MainActivity extends Activity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                LogUtils.LOG("ceshi",title,"网址错误");
+                LogUtils.LOG("ceshi",title,"网址网址网址");
             }
+
 
             //扩展浏览器上传文件
             //3.0++版本

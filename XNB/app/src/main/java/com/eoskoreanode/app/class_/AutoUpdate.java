@@ -251,7 +251,7 @@ public class AutoUpdate {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Uri contentUri = FileProvider.getUriForFile(activity, "com.ete.coin.FileProvider", newFile);
+            Uri contentUri = FileProvider.getUriForFile(activity, "com.eoskoreanode.app.FileProvider", newFile);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
 
