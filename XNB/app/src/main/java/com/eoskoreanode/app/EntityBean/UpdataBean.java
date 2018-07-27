@@ -1,4 +1,4 @@
-package com.eoskoreanode.coin.szhb.EntityBean;
+package com.eoskoreanode.app.EntityBean;
 
 /**
  * Created by 飞 on 2018/5/6.

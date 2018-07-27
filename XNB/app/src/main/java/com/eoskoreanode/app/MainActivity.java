@@ -1,4 +1,5 @@
-package com.eoskoreanode.coin.szhb;
+package com.eoskoreanode.app;
+
 
 import android.Manifest;
 import android.app.Activity;
@@ -8,43 +9,36 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eoskoreanode.coin.szhb.Interface.InterfacePermission;
-import com.eoskoreanode.coin.szhb.class_.AutoUpdate;
-import com.eoskoreanode.coin.szhb.class_.LogUtils;
-import com.eoskoreanode.coin.szhb.class_.Permissionmanage;
-import com.eoskoreanode.coin.szhb.class_.ToastUtils;
+import com.eoskoreanode.app.Interface.InterfacePermission;
+import com.eoskoreanode.app.class_.AutoUpdate;
+import com.eoskoreanode.app.class_.LogUtils;
+import com.eoskoreanode.app.class_.Permissionmanage;
+import com.eoskoreanode.app.class_.ToastUtils;
 import com.jaeger.library.StatusBarUtil;
 import com.master.permissionhelper.PermissionHelper;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
-import java.util.HashMap;
-import java.util.Set;
-
 public class MainActivity extends Activity {
     //控件
     private WebView webView;
-    ProgressBar  mPrigressBer;
+    ProgressBar mPrigressBer;
 
     //对象
     PermissionHelper permissionHelper;

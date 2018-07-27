@@ -1,12 +1,13 @@
-package com.eoskoreanode.coin.szhb;
+package com.eoskoreanode.app;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
+
+
 
 import java.util.Timer;
 import java.util.TimerTask;

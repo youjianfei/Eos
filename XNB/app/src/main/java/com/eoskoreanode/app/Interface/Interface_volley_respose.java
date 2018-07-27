@@ -1,4 +1,4 @@
-package com.eoskoreanode.coin.szhb.Interface;
+package com.eoskoreanode.app.Interface;
 
 /**
  * Created by PC on 2017/1/9.

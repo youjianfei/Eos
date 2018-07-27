@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.eoskoreanode.coin.szhb">
+    package="com.eoskoreanode.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -31,10 +31,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.eoskoreanode.app.MainActivity">
 
         </activity>
-        <activity android:name=".LunchActivity">
+        <activity android:name="com.eoskoreanode.app.LunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

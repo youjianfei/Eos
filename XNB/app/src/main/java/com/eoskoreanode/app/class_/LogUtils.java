@@ -1,4 +1,4 @@
-package com.eoskoreanode.coin.szhb.class_;
+package com.eoskoreanode.app.class_;
 
 import android.util.Log;
 

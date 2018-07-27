@@ -1,4 +1,4 @@
-package com.eoskoreanode.coin.szhb.class_;
+package com.eoskoreanode.app.class_;
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,12 +16,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 
-import com.eoskoreanode.coin.szhb.EntityBean.UpdataBean;
-import com.eoskoreanode.coin.szhb.Interface.Interface_volley_respose;
+import com.eoskoreanode.app.EntityBean.UpdataBean;
+import com.eoskoreanode.app.Interface.Interface_volley_respose;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;

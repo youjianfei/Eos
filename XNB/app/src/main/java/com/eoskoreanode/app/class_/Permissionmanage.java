@@ -1,6 +1,6 @@
-package com.eoskoreanode.coin.szhb.class_;
+package com.eoskoreanode.app.class_;
 
-import com.eoskoreanode.coin.szhb.Interface.InterfacePermission;
+import com.eoskoreanode.app.Interface.InterfacePermission;
 import com.master.permissionhelper.PermissionHelper;
 
 public class Permissionmanage {
